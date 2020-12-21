@@ -49,6 +49,9 @@ usage() {
       windows-2019                Windows 2019 images
       alpine                      Alpine images
       oracle-8                    Oracle Linux 8 images
+      cloudlinux-8                Cloudlinux 8 images
+      cloudlinux-7                Cloudlinux 7 images
+      cloudlinux-7-plesk          Cloudlinux 7 images with Plesk
 
     Options:
       --cleanup                   Cleans up the output directory after the build by removing a built OS image. This option may be useful if you transfer the image via scp to another server using the --opt_destination option. After the image was transferred, you may no longer need it in the output directory.
@@ -176,6 +179,24 @@ do_build() {
     image_path="output/ubuntu"
     [[ ! -d image_path ]] || rm -rf image_path
     ;;
+    cloudlinux-8)
+    inten="Build Cloudlinux 8 cloud-init image"
+    config="cloudlinux/solus-cloudlinux-8.json"
+    image_path="output/cloudlinux"
+    [[ ! -d image_path ]] || rm -rf image_path
+    ;;
+    cloudlinux-7)
+    inten="Build Cloudlinux 7 cloud-init image"
+    config="cloudlinux/solus-cloudlinux-7.json"
+    image_path="output/cloudlinux"
+    [[ ! -d image_path ]] || rm -rf image_path
+    ;;
+    cloudlinux-7-plesk)
+    inten="Build Cloudlinux 7 cloud-init image"
+    config="cloudlinux/solus-cloudlinux-7-plesk.json"
+    image_path="output/cloudlinux"
+    [[ ! -d image_path ]] || rm -rf image_path
+    ;;
   windows-2019)
     inten="Build windows server 2019 cloud-based-init image"
     config="windows/windows-2019.json"
@@ -242,7 +263,7 @@ image_path=
 destination=
 opt_cleanup=
 
-image_types_allowed="alpine centos-7-plesk centos-8 centos-8-plesk debian-8 debian-10 fedora oracle-8 ubuntu-18 ubuntu-18-plesk ubuntu-20 ubuntu-20-plesk windows-2019"
+image_types_allowed="alpine centos-7-plesk centos-8 centos-8-plesk debian-8 debian-10 fedora oracle-8 ubuntu-18 ubuntu-18-plesk ubuntu-20 ubuntu-20-plesk cloudlinux-8 cloudlinux-7 cloudlinux-7-plesk windows-2019"
 allowed_actions="build"
 
 opt_command="$(get_arg $1 $allowed_actions)"

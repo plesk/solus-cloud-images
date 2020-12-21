@@ -60,4 +60,12 @@ clean_garbage()
 	echo -n > /root/.bash_history
 }
 
+clean_cloudlinux_repo()
+{
+  if [[ -f "/etc/yum.repos.d/local.repo" ]]; then
+    rm -f "/etc/yum.repos.d/local.repo"
+  fi
+}
+
+clean_cloudlinux_repo
 clean_garbage

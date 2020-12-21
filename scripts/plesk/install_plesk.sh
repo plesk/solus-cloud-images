@@ -10,7 +10,7 @@ do_prepare()
 	hostname localhost.localdomain
 	sed -i /etc/hosts -e '/^127.0.0.1/ i \127.0.0.1 localhost.localdomain'
 
-	if [ -f "/etc/centos-release" ]; then
+	if [ -f "/etc/centos-release" ] || [ "$(grep cloudlinux /etc/os-release)" ]; then
 		if ! yum update -y; then
 			sleep 120
 			yum update -y
@@ -53,7 +53,7 @@ plesk_install()
 
 	env PLESK_INSTALLER_VERBOSE=1 ./plesk-installer $ai_args
 
-	if [ -f "/etc/centos-release" ]; then
+	if [ -f "/etc/centos-release" ] || [ "$(grep cloudlinux /etc/os-release)" ]; then
 		  yum-config-manager --setopt=\*.skip_if_unavailable=1 --save
 	else
 		  [ ! -f /etc/apt/sources.list.d/plesk.list ] || rm -rf /etc/apt/sources.list.d/plesk.list
